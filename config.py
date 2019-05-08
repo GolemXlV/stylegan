@@ -10,9 +10,9 @@
 #----------------------------------------------------------------------------
 # Paths.
 
-result_dir = 'results'
-data_dir = 'datasets'
-cache_dir = 'cache'
+result_dir = '/dltraining/projects/results'
+data_dir = '/dltraining/projects/datasets'
+cache_dir = '/dltraining/projects/cache'
 run_dir_ignore = ['results', 'datasets', 'cache']
 
 #----------------------------------------------------------------------------
