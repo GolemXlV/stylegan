@@ -94,7 +94,7 @@ def main():
     kwargs.submit_config.run_dir_ignore += config.run_dir_ignore
     kwargs.submit_config.run_desc = desc
     kwargs.save_weight_histograms = True
-    kwargs.update(resume_run_id=3, resume_kimg=7141, resume_snapshot=10449)
+    kwargs.update(resume_run_id=3, resume_kimg=10449, resume_snapshot=10449)
     dnnlib.submit_run(**kwargs)
 
 #----------------------------------------------------------------------------
