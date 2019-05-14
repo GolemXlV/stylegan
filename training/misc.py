@@ -108,6 +108,8 @@ def locate_run_dir(run_id_or_run_dir):
         run_dirs = [run_dir for run_dir in run_dirs if os.path.isdir(run_dir)]
         if len(run_dirs) == 1:
             return run_dirs[0]
+        if len(run_dirs) > 1 and run_id_or_run_dir == -1:
+            return run_dirs[-1]
     raise IOError('Cannot locate result subdir for run', run_id_or_run_dir)
 
 def list_network_pkls(run_id_or_run_dir, include_final=True):
@@ -141,6 +143,11 @@ def locate_network_pkl(run_id_or_run_dir_or_network_pkl, snapshot_or_network_pkl
         except ValueError: pass
         except IndexError: pass
     raise IOError('Cannot locate network pkl for snapshot', snapshot_or_network_pkl)
+
+def get_network_pkl_kimg(network_pkl):
+    name = os.path.splitext(os.path.basename(network_pkl))[0]
+    number = int(name.split('-')[-1])
+    return number
 
 def get_id_string_for_network_pkl(network_pkl):
     p = network_pkl.replace('.pkl', '').replace('\\', '/').split('/')

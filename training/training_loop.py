@@ -150,6 +150,8 @@ def training_loop(
         if resume_run_id is not None:
             network_pkl = misc.locate_network_pkl(resume_run_id, resume_snapshot)
             print('Loading networks from "%s"...' % network_pkl)
+            if not bool(resume_kimg):
+                resume_kimg = misc.get_network_pkl_kimg(network_pkl)
             G, D, Gs = misc.load_pkl(network_pkl)
         else:
             print('Constructing networks...')
