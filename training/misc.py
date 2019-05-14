@@ -96,6 +96,13 @@ def locate_run_dir(run_id_or_run_dir):
         converted = dnnlib.submission.submit.convert_path(run_id_or_run_dir)
         if os.path.isdir(converted):
             return converted
+    if run_id_or_run_dir == -1:
+        for search_dir in ['']:
+            full_search_dir = config.result_dir if search_dir == '' else os.path.normpath(os.path.join(config.result_dir, search_dir))
+            run_dirs = sorted(glob.glob(os.path.join(full_search_dir, '*')))
+            run_dirs = [run_dir for run_dir in run_dirs if os.path.isdir(run_dir)]
+            if len(run_dirs) > 0:
+                return run_dirs[-2] # already created run dir
 
     run_dir_pattern = re.compile('^0*%s-' % str(run_id_or_run_dir))
     for search_dir in ['']:
@@ -108,8 +115,6 @@ def locate_run_dir(run_id_or_run_dir):
         run_dirs = [run_dir for run_dir in run_dirs if os.path.isdir(run_dir)]
         if len(run_dirs) == 1:
             return run_dirs[0]
-        if len(run_dirs) > 1 and run_id_or_run_dir == -1:
-            return run_dirs[-1]
     raise IOError('Cannot locate result subdir for run', run_id_or_run_dir)
 
 def list_network_pkls(run_id_or_run_dir, include_final=True):
