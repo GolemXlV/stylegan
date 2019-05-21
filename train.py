@@ -95,7 +95,7 @@ def main():
     kwargs.submit_config.run_desc = desc
     kwargs.save_weight_histograms = True
     kwargs.network_snapshot_ticks = 5
-    kwargs.update(resume_run_id=10)
+    kwargs.update(resume_run_id=-1)
     dnnlib.submit_run(**kwargs)
 
 #----------------------------------------------------------------------------
